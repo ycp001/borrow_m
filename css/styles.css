@@ -1,0 +1,48 @@
+
+body { padding-bottom: 60px; padding-top: 10px; }
+.container { padding-top: 10px;
+             font-size:20px; 
+             }
+.conver {
+	background-color: yellow;
+}
+
+.my-listlink a:hover {
+	text-decoration: none;
+}
+.schoolname {
+	padding-bottom:20px;
+    font-size:50px;
+
+}
+
+.jumbotron {
+    letter-spacing:8px; 
+    margin-bottom: 20px;
+    background-image: url(../imag/schoolmark.jpg);
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    font-size:35px;
+    text-shadow: black 0.1em 0.1em 0.1em;
+    height: 150px;
+    font-weight: bold;
+}
+
+.navbar-btn {
+bottom: 0px;
+letter-spacing:0px;
+
+
+}
+
+.no-border{
+    border: none;
+}
+.navbar-btn{
+     text-shadow: black 0.1em 0.1em 0.1em;
+}
+.tr{
+    height: 20px;
+}
