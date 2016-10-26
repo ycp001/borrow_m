@@ -182,3 +182,56 @@ function parse_students_xml( $xml_filename = '')
 
 	return $arr;
 }
+
+
+/**
+ * 將學生資料新增至資料庫
+ *
+ * @param $students
+ */
+function add_students( $students ){
+	$conn = get_conn();
+
+	foreach( $students as $student){
+		/*print $student['schoolno'];
+		print $student['cname'];
+		print $student['classname'];
+		print $student['classno'];
+		print $student['birth'];
+		print '<br />';*/
+
+		$sql = sprintf("INSERT INTO users(
+										school_no, 
+										student_name, 
+										class_name, 
+										class_no, 
+										gender, 
+										birth
+										) 
+										VALUES 
+										(
+										'%s',
+										'%s',
+										'%s',
+										'%s',
+										'%s',
+										'%s'
+										) "
+									,
+									$student['schoolno'],
+									$student['cname'],
+									$student['classname'],
+									$student['classno'],
+									$student['gender'],
+									$student['birth']
+
+			);
+
+		if( mysqli_query( $conn, $sql) ){
+			print '學號' . $student['schoolno'] . '已新增成功<br />';
+		}else{
+			print '學號' .$student['schoolno'] . '無法新增，請聯絡管理員<br />';
+		}
+
+	}
+}

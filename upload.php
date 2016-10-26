@@ -45,7 +45,9 @@ define("UPLOAD_DIR", "C:/wagon/uwamp/www/default/borrow_m/files/");
             if( $upload_status ){
                 $students = parse_students_xml( UPLOAD_DIR . $name );
 
-                dump( $students );
+                if( count( $students ) ){
+                    add_students($students);
+                };
             }
 
         }
