@@ -123,4 +123,62 @@ function chk_permission($school_id = '', $title = ''){
 		$forward_url = 'notschool.html';
 	}
 }*/
-?>
+
+
+function parse_students_xml( $xml_filename = '')
+{
+
+	if( $xml_filename == '') return false;
+
+
+	$dom = new DOMDocument('1.0', 'UTF-8');
+	$dom->load($xml_filename);
+
+	$students = $dom->getElementsByTagNameNS("http://163.20.240.13", "row");
+
+
+	$arr = array();
+
+	foreach ($students as $row) {
+		$student = $row->getElementsByTagNameNS("http://163.20.240.13", "col");
+
+		if ($student->item(0)->nodeValue == '學號') {
+			continue;
+		}
+
+
+
+		$schoolno = $student->item(0)->nodeValue;
+
+		$studentName = $student->item(1)->nodeValue;
+		$classname = $student->item(2)->nodeValue . $student->item(5)->nodeValue;
+		$gender = $student->item(3)->nodeValue;
+
+		$birth = $student->item(4)->nodeValue;
+
+
+		if (strlen($birth) == 8) {              // 生日為西元年
+			$birth = substr($birth, 0, 4) . "-" . substr($birth, 4, 2) . "-" . substr($birth, 6, 2);
+		} else {                                                  // 生日>非西元年
+			if (strlen($birth) == 6) {
+				$birth = (substr($birth, 0, 2) + 1911) . "-" . substr($birth, 2, 2) . "-" . substr($birth, 4, 2);
+			} elseif (strlen($birth) == 7) {
+				$birth = (substr($birth, 0, 3) + 1911) . "-" . substr($birth, 3, 2) . "-" . substr($birth, 5, 2);
+			}
+		}
+
+		$classno = $student->item(6)->nodeValue;
+
+
+		$arr[] = [
+			'schoolno' => $schoolno,
+			'cname' =>$studentName,
+			'classname' => $classname,
+			'classno' => $classno,
+			'gender' => $gender,
+			'birth' => $birth
+		];
+	}
+
+	return $arr;
+}
